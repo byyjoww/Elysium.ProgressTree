@@ -1,0 +1,28 @@
+{
+  "requirements": [
+    {
+      "name": "testing1",
+      "cost": 0,
+      "dependencies": [
+        {
+          "name": "testing2",
+          "level": 1
+        },
+        {
+          "name": "testing3",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "name": "testing2",
+      "cost": 0,
+      "dependencies": [
+        {
+          "name": "testing3",
+          "level": 1
+        }
+      ]
+    }
+  ]
+}
