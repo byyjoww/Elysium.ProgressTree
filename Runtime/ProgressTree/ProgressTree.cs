@@ -19,20 +19,21 @@ namespace Elysium.ProgressTree
         protected INodeElement[] AllNodeElements { get; set; }
         protected INodeElement[] AllDependencies { get; set; }
 
-        private ProgressTree()
+        private ProgressTree(INodeElement[] _allNodeElements, INodeElement[] _allDependencies)
         {
             graph = new List<Node>();
-        }
-
-        public static ProgressTree Create()
-        {
-            return new ProgressTree();
-        }
-
-        public void Build(INodeElement[] _allNodeElements, INodeElement[] _allDependencies, ITreeRequirement[] _requirements)
-        {
             this.AllNodeElements = _allNodeElements;
             this.AllDependencies = _allDependencies;
+        }
+
+        public static ProgressTree Create(INodeElement[] _allNodeElements, INodeElement[] _allDependencies)
+        {
+            var tree = new ProgressTree(_allNodeElements, _allDependencies);
+            return tree;
+        }
+
+        public void Build(ITreeRequirement[] _requirements)
+        {
             BuildNodes(_requirements);
         }
 

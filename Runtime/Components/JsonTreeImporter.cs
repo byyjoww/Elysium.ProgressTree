@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Elysium.ProgressTree.Json
 {
@@ -9,7 +6,9 @@ namespace Elysium.ProgressTree.Json
     {
         protected override void Import()
         {
-            ProgressTree = ProgressTree.Create().FromJson(nodeElementDatabase.ElementsAsInterface, dependencyDatabase.ElementsAsInterface, importedTextAsset);
+            ProgressTree = ProgressTree
+                .Create(nodeElementDatabase.ElementsAsInterface, dependencyDatabase.ElementsAsInterface)
+                .FromJson(importedTextAsset);
         }
 
         protected override bool IsValidFormat()
