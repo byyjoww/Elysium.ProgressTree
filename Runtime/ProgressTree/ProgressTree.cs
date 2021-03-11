@@ -19,15 +19,22 @@ namespace Elysium.ProgressTree
         protected INodeElement[] AllNodeElements { get; set; }
         protected INodeElement[] AllDependencies { get; set; }
 
-        protected ProgressTree(INodeElement[] _allNodeElements, INodeElement[] _allDependencies, ITreeRequirement[] _requirements)
+        private ProgressTree()
         {
             graph = new List<Node>();
-            this.AllNodeElements = _allNodeElements;
-            this.AllDependencies = _allDependencies;
-            BuildTree(_requirements);
         }
 
-        // public abstract void BuildTreeFromTemplateSO(TemplateSO _template);
+        public static ProgressTree Create()
+        {
+            return new ProgressTree();
+        }
+
+        public void Build(INodeElement[] _allNodeElements, INodeElement[] _allDependencies, ITreeRequirement[] _requirements)
+        {
+            this.AllNodeElements = _allNodeElements;
+            this.AllDependencies = _allDependencies;
+            BuildNodes(_requirements);
+        }
 
         public Node GetNode(INodeElement _element)
         {
@@ -75,7 +82,7 @@ namespace Elysium.ProgressTree
             OnNodeChanged?.Invoke(_node);
         }
 
-        protected void BuildTree(ITreeRequirement[] _requirements)
+        protected void BuildNodes(ITreeRequirement[] _requirements)
         {
             if (_requirements.Length < 1) 
             { 
@@ -90,14 +97,12 @@ namespace Elysium.ProgressTree
                 Debug.Log($"Requirement: {requirement.Name} | Cost: {requirement.Cost}");
                 foreach (var kvp in requirement.Dependencies) { Debug.Log($"Dependency => Name: {kvp.Key} | Level: {kvp.Value}"); }
 
-                // GET NODE ELEMENT
                 if (!TryExtractNode(requirement, out INodeElement nodeElement))
                 {
                     Debug.LogError($"Couldn't find element for {requirement.Name} in database");
                     continue;
                 }
 
-                // BUILD DEPENDENCIES
                 if (!TryExtractDependencies(requirement, out List <Dependency> dependencies))
                 {
                     Debug.LogError($"Couldn't find dependencies for {requirement.Name} in database");

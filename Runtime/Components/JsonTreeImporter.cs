@@ -7,7 +7,10 @@ namespace Elysium.ProgressTree.Json
 {
     public class JsonTreeImporter : TreeImporter
     {
-        protected override void Import() => ProgressTree = ProgressTree.FromJson(nodeElementDatabase.Elements, dependencyDatabase.ElementsAsInterface, importedTextAsset);
+        protected override void Import()
+        {
+            ProgressTree = ProgressTree.Create().FromJson(nodeElementDatabase.ElementsAsInterface, dependencyDatabase.ElementsAsInterface, importedTextAsset);
+        }
 
         protected override bool IsValidFormat()
         {

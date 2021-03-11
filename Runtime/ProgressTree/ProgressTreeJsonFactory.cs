@@ -1,16 +1,15 @@
-﻿using Elysium.ProgressTree.Json;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Elysium.ProgressTree
+namespace Elysium.ProgressTree.Json
 {
-    public partial class ProgressTree
+    public static class ProgressTreeFactory
     {
-        public static ProgressTree FromJson(INodeElement[] _allNodeElements, INodeElement[] _allDependencies, TextAsset _json)
+        public static ProgressTree FromJson(this ProgressTree _tree, INodeElement[] _allNodeElements, INodeElement[] _allDependencies, TextAsset _json)
         {
             Debug.Log($"Building progressTree from JSON:\n{_json.text}");
-
             ITreeRequirement[] requirements = JsonRequirementCollection.FromJson(_json.text);
-            return new ProgressTree(_allNodeElements, _allDependencies, requirements);
+            _tree.Build(_allNodeElements, _allDependencies, requirements);
+            return _tree;
         }
     }
 }

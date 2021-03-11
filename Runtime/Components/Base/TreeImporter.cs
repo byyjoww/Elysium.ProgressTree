@@ -1,4 +1,5 @@
-﻿using Elysium.Utils.Attributes;
+﻿using Elysium.Utils;
+using Elysium.Utils.Attributes;
 using UnityEngine;
 
 namespace Elysium.ProgressTree
@@ -12,7 +13,7 @@ namespace Elysium.ProgressTree
         [SerializeField, ReadOnly] protected ProgressTree ProgressTree;
 
         [Separator("Database of Tree Elements", true)]
-        [SerializeField] protected TestNodeElementSODatabase nodeElementDatabase = new TestNodeElementSODatabase();
+        [SerializeField] protected DependencyDatabase nodeElementDatabase = new DependencyDatabase();
 
         [Separator("Database of Tree Dependencies", true)]
         [SerializeField] protected DependencyDatabase dependencyDatabase = new DependencyDatabase();
